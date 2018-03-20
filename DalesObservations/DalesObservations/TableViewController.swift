@@ -8,11 +8,29 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController{
 
+    struct Observation{
+        
+        var title: String
+        var description: String
+        var type: String
+    }
+    
+    
+    
+    var observations = [Observation(title: "Yellow Toad", description: "Very gross toad. :(", type: "amphibian"),
+                        Observation(title: "Orange Frog", description: "Easy to see in trees", type: "amphibian"),
+                        Observation(title: "Purple Skink", description: "I really dont know what this is.", type: "amphibian"),
+                        Observation(title: "Green Frog", description: "Gross color", type: "amphibian"),
+                        Observation(title: "Bull Frog", description: "This frog is incredibly load", type: "amphibian"),
+                        Observation(title: "Leaping Frog", description: "Hops very high", type: "amphibian")]
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        tableView.dataSource = self
+        tableView.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,14 +47,31 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return observations.count
     }
-
+   /* func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "observationCell", for: indexPath) as! TableViewCell
+        let observation = observations[indexPath.row]
+        
+        return cell
+    }*/
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "observationCell", for: indexPath)
+        let observation = observations[indexPath.row]
+        
+        cell.textLabel?.text = observation.title
+        cell.detailTextLabel?.text = observation.description
+        
+        return cell
+    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
